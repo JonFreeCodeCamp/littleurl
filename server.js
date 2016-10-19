@@ -27,7 +27,7 @@ var collection = function( name ) {
 
 
 app.get('/', (req, res) => {
-    res.end("Access the api with a long url as the path:\n\n ie. http://thissite/http://www.example.com");
+    res.end("Access the api with a long url as the path:\n\n ie. http://thissite/new/http://www.example.com");
 });
 
 app.get(/^\/([0-9a-zA-Z\-_]{4})$/, (req, res) => {
