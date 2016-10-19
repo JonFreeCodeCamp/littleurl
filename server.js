@@ -82,7 +82,7 @@ app.get('/new/*', (req, res) => {
     }
 });
 
-app.get('/*', (res, req) => {
+app.get('/*', (req, res) => {
     res.json({"error":"Wrong url format, make sure you have a valid protocol and real site."});
 });
 
