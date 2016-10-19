@@ -32,17 +32,15 @@ app.get('/', (req, res) => {
 
 app.get(/^\/([0-9a-zA-Z\-_]{4})$/, (req, res) => {
     var searchUid = req.params[0];
-    console.log(searchUid);
     collection(collectionName).findOne({
         "uid": searchUid
     }, (err, data) => {
        if (err) throw err;
        
        if (data) {
-           console.log("redirect to: " + data.url);
+           if (data.url.slice(0,4) !== "http") data.url = "http://" + data.url;
            res.redirect(302, data.url);
        } else {
-           console.log("error with key: " + searchUid);
            res.json({"error":"That key does not exist. Please try another key."});
        }
     });
@@ -61,7 +59,6 @@ app.get('/new/*', (req, res) => {
             if (err) throw err;
             
             if (data) {
-                console.log("Link already exists! replay link.");
                 res.json({
                     "original_url": longurl,
                     "short_url": "https://" + req.headers.host + "/" + data.uid
@@ -73,7 +70,6 @@ app.get('/new/*', (req, res) => {
                 },
                 (err, data) => {
                     if (err) throw err;
-                    console.log("Successfully added item.");
                     res.json({
                         "original_url": longurl,
                         "short_url": "https://" + req.headers.host + "/" + uid
